@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+    <section class="hero is-primary">
+      <div class="hero-head">
+        <div class="container">
+          <nav class="nav">
+            <div class="nav-left">
+              <%= link to: page_path(@conn, :index), class: "nav-item is-brand" do %>
+                <h1 class="title">Blog</h1>
+              <% end %>
+            </div>
+
+            <%= if signed_in?(@conn) do %>
+              <span id="nav-toggle" class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+
+              <div id="nav-menu" class="nav-right nav-menu">
+                <%= link "Logout", to: session_path(@conn, :delete), class: "nav-item", method: :delete %>
+              </div>
+            <% end %>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <div>
+      <%= if get_flash(@conn, :info) do %>
+        <div class="notification is-info">
+          <button class="delete"></button>
+          <%= get_flash(@conn, :info) %>
+        </div>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <div class="notification is-danger">
+          <button class="delete"></button>
+          <%= get_flash(@conn, :error) %>
+        </div>
+      <% end %>
+    </div>
+
+    <main class="section">
+      <div class="container">
+        <%= render @view_module, @view_template, assigns %>
+      </div>
+    </main>
+
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+</html>
