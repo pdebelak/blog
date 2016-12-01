@@ -5,6 +5,7 @@ defmodule Blog.User do
     field :username, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    has_many :posts, Blog.Post
 
     timestamps()
   end
@@ -40,4 +41,8 @@ defmodule Blog.User do
       true -> {:error, changeset(params)}
     end
   end
+end
+
+defimpl Phoenix.Param, for: Blog.User do
+  def to_param(%{username: username}), do: username
 end

@@ -1,29 +1,11 @@
-<%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= label f, :title, class: "control-label" %>
-    <%= text_input f, :title, class: "form-control" %>
-    <%= error_tag f, :title %>
+<div class="columns">
+  <div class="column">
+    <%= form_for @changeset, @action, fn f -> %>
+      <%= input_tag f, :title %>
+      <%= input_tag f, :slug, readonly: true, placeholder: "Will be generated automatically" %>
+      <%= textarea_tag f, :body %>
+      <%= submit_button "Submit" %>
+    <% end %>
   </div>
-
-  <div class="form-group">
-    <%= label f, :slug, class: "control-label" %>
-    <%= text_input f, :slug, class: "form-control" %>
-    <%= error_tag f, :slug %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :body, class: "control-label" %>
-    <%= textarea f, :body, class: "form-control" %>
-    <%= error_tag f, :body %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-  </div>
-<% end %>
+  <div class="column"></div>
+</div>

@@ -1,0 +1,24 @@
+<%= link "New post", to: post_path(@conn, :new), class: "button is-primary is-outlined is-pulled-right" %>
+<h1 class="subtitle">Dashboard</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for post <- @posts do %>
+      <tr>
+        <td><%= link post.title, to: post_path(@conn, :show, post) %></td>
+        <td>
+          <div class="is-pulled-right">
+            <%= link "Edit", to: post_path(@conn, :edit, post), class: "button is-primary is-outlined" %>
+            <%= link "Delete", to: post_path(@conn, :delete, post) , method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger", form: [class: "is-inline-block"] %>
+          </div>
+        </td>
+      <tr>
+    <% end %>
+  </tbody>
+</table>

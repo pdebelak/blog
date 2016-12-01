@@ -14,7 +14,7 @@
         <div class="container">
           <nav class="nav">
             <div class="nav-left">
-              <%= link to: page_path(@conn, :index), class: "nav-item is-brand" do %>
+              <%= link to: post_path(@conn, :index), class: "nav-item is-brand" do %>
                 <h1 class="title">Blog</h1>
               <% end %>
             </div>
@@ -27,7 +27,8 @@
               </span>
 
               <div id="nav-menu" class="nav-right nav-menu">
-                <%= link "Logout", to: session_path(@conn, :delete), class: "nav-item", method: :delete %>
+                <%= write_link(@conn) %>
+                <%= link "Logout", to: session_path(@conn, :delete), form: [class: "nav-item has-text-left"], method: :delete %>
               </div>
             <% end %>
           </nav>

@@ -22,8 +22,16 @@ defmodule Blog.Post do
   end
 
   defp set_slug(changeset) do
-    slug = Ecto.Changeset.get_field(changeset, :title)
-    |> Slugger.slugify_downcase()
-    Ecto.Changeset.put_change(changeset, :slug, slug)
+    if Ecto.Changeset.get_field(changeset, :slug) do
+      changeset
+    else
+      slug = Ecto.Changeset.get_field(changeset, :title)
+      |> Slugger.slugify_downcase()
+      Ecto.Changeset.put_change(changeset, :slug, slug)
+    end
   end
+end
+
+defimpl Phoenix.Param, for: Blog.Post do
+  def to_param(%{slug: slug}), do: slug
 end

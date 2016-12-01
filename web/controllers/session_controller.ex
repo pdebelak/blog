@@ -14,7 +14,7 @@ defmodule Blog.SessionController do
         conn
         |> CurrentUser.sign_in(user)
         |> put_flash(:info, "Logged in!")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: dashboard_path(conn, :index))
       {:error, changeset} ->
         conn
         |> put_flash(:error, "Invalid username or password.")
@@ -26,6 +26,6 @@ defmodule Blog.SessionController do
     conn
     |> CurrentUser.sign_out()
     |> put_flash(:info, "Logged out!")
-    |> redirect(to: page_path(conn, :index))
+    |> redirect(to: post_path(conn, :index))
   end
 end

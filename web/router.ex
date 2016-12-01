@@ -25,14 +25,16 @@ defmodule Blog.Router do
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete
 
-    resources "/posts", PostController, only: [:index, :show]
+    resources "/posts", PostController, only: [:show]
 
-    get "/", PageController, :index
+    get "/", PostController, :index
+    get "/authors/:username/posts", PostController, :index, as: "author_posts"
   end
 
   scope "/admin", Blog do
     pipe_through [:browser, :admin]
 
+    resources "/dashboard", DashboardController, only: [:index]
     resources "/posts", PostController, only: [:new, :create, :edit, :update, :delete]
   end
 

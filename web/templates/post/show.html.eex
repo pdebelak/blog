@@ -1,28 +1,5 @@
-<h2>Show post</h2>
-
-<ul>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @post.title %>
-  </li>
-
-  <li>
-    <strong>Slug:</strong>
-    <%= @post.slug %>
-  </li>
-
-  <li>
-    <strong>Body:</strong>
-    <%= @post.body %>
-  </li>
-
-  <li>
-    <strong>User:</strong>
-    <%= @post.user_id %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: post_path(@conn, :edit, @post) %>
-<%= link "Back", to: post_path(@conn, :index) %>
+<h1 class="title"><%= @post.title %></h1>
+<p class="subtitle is-6">By <%= link @post.user.username, to: author_posts_path(@conn, :index, @post.user) %></p>
+<div class="content">
+  <%= post_body(@post) %>
+</div>
