@@ -9,7 +9,7 @@ defmodule Blog.Plugs.RequireCurrentUser do
         conn
         |> send_resp(401, "Not authorized")
         |> halt()
-      user -> conn
+      _ -> conn
     end
   end
 end

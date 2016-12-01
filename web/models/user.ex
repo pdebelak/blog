@@ -20,7 +20,7 @@ defmodule Blog.User do
     |> hash_password()
     |> unique_constraint(:username)
   end
-  defp changeset(params), do: changeset(%__MODULE__{}, params)
+  def changeset(params \\ %{}), do: changeset(%__MODULE__{}, params)
 
   defp hash_password(%{valid?: false} = changeset), do: changeset
   defp hash_password(%{valid?: true} = changeset) do
@@ -30,7 +30,7 @@ defmodule Blog.User do
 
   @doc """
   Checks if a user exists with given `username` and `password`. Returns either
-  `{:ok, user}` or `{:error, changeset}`.
+  `{:ok, user}` or `{:error, changeset}`
   """
   def authenticate(%{"username" => username, "password" => password} = params) do
     user = Blog.Repo.get_by(__MODULE__, username: username)

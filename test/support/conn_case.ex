@@ -29,6 +29,15 @@ defmodule Blog.ConnCase do
 
       # The default endpoint for testing
       @endpoint Blog.Endpoint
+
+      defp with_current_user(conn, user) do
+        conn
+        |> bypass_through(Blog.Router, [:browser])
+        |> get("/")
+        |> Blog.CurrentUser.sign_in(user)
+        |> send_resp(200, "Flush the session")
+        |> recycle()
+      end
     end
   end
 

@@ -32,15 +32,6 @@ defmodule Blog.SessionControllerTest do
   end
 
   defp create_user do
-    User.changeset(%User{}, @valid_attrs) |> Repo.insert!
-  end
-
-  defp with_current_user(conn, user) do
-    conn
-    |> bypass_through(Blog.Router, [:browser])
-    |> get("/")
-    |> CurrentUser.sign_in(user)
-    |> send_resp(200, "Flush the session")
-    |> recycle()
+    User.changeset(@valid_attrs) |> Repo.insert!
   end
 end

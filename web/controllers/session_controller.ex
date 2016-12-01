@@ -4,7 +4,7 @@ defmodule Blog.SessionController do
   alias Blog.{User, CurrentUser}
 
   def new(conn, _params) do
-    changeset = User.changeset(%User{}, %{})
+    changeset = User.changeset
     render(conn, "new.html", changeset: changeset)
   end
 
@@ -18,7 +18,7 @@ defmodule Blog.SessionController do
       {:error, changeset} ->
         conn
         |> put_flash(:error, "Invalid username or password.")
-        |> render("new.html", changeset: changeset)
+        |> render("new.html", changeset: %{changeset | action: :authenticate})
     end
   end
 

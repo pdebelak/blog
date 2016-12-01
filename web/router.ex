@@ -25,12 +25,15 @@ defmodule Blog.Router do
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete
 
+    resources "/posts", PostController, only: [:index, :show]
+
     get "/", PageController, :index
   end
 
   scope "/admin", Blog do
     pipe_through [:browser, :admin]
 
+    resources "/posts", PostController, only: [:new, :create, :edit, :update, :delete]
   end
 
   # Other scopes may use custom stacks.
