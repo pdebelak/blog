@@ -4,13 +4,17 @@ defmodule Blog.PostController do
   alias Blog.{Post, CurrentUser}
 
   def index(conn, %{"username" => username}) do
-    user = Blog.User
-    |> preload(posts: :user)
-    |> Repo.get_by!(username: username)
-    render(conn, "index.html", posts: user.posts)
+    user = Repo.get_by!(Blog.User, username: username)
+    posts = Post
+    |> Post.all_published()
+    |> Post.for_user(user)
+    |> Repo.all()
+    render(conn, "index.html", posts: posts)
   end
   def index(conn, _params) do
-    posts = Post |> preload(:user) |> Repo.all()
+    posts = Post
+    |> Post.all_published()
+    |> Repo.all()
     render(conn, "index.html", posts: posts)
   end
 
@@ -33,32 +37,41 @@ defmodule Blog.PostController do
   end
 
   def show(conn, %{"id" => slug}) do
-    post = Post |> preload(:user) |> Repo.get_by!(slug: slug)
+    post = Post
+    |> preload(:user)
+    |> Post.published()
+    |> Repo.get_by!(slug: slug)
     render(conn, "show.html", post: post)
   end
 
   def edit(conn, %{"id" => slug}) do
-    post = Repo.get_by!(Post, slug: slug, user_id: CurrentUser.current_user(conn).id)
+    post = Post
+    |> Post.for_user(CurrentUser.current_user(conn))
+    |> Repo.get_by!(slug: slug)
     changeset = Post.changeset(post)
     render(conn, "edit.html", post: post, changeset: changeset)
   end
 
   def update(conn, %{"id" => slug, "post" => post_params}) do
-    post = Repo.get_by!(Post, slug: slug, user_id: CurrentUser.current_user(conn).id)
+    post = Post
+    |> Post.for_user(CurrentUser.current_user(conn))
+    |> Repo.get_by!(slug: slug)
     changeset = Post.changeset(post, post_params)
 
     case Repo.update(changeset) do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post updated successfully.")
-        |> redirect(to: post_path(conn, :show, post))
+        |> redirect(to: Blog.DashboardView.smart_post_path(conn, post))
       {:error, changeset} ->
         render(conn, "edit.html", post: post, changeset: changeset)
     end
   end
 
   def delete(conn, %{"id" => slug}) do
-    post = Repo.get_by!(Post, slug: slug, user_id: CurrentUser.current_user(conn).id)
+    post = Post
+    |> Post.for_user(CurrentUser.current_user(conn))
+    |> Repo.get_by!(slug: slug)
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).

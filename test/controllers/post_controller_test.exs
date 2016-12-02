@@ -37,7 +37,7 @@ defmodule Blog.PostControllerTest do
 
   test "shows chosen resource", %{conn: conn} do
     user = create_user
-    post = Repo.insert! %Post{slug: "slug", title: "Title", user: user}
+    post = Repo.insert! %Post{slug: "slug", title: "Title", user: user, published_at: Ecto.DateTime.utc}
     conn = get conn, post_path(conn, :show, post)
     assert html_response(conn, 200) =~ post.title
   end
@@ -63,7 +63,7 @@ defmodule Blog.PostControllerTest do
     conn = conn
     |> with_current_user(user)
     |> put(post_path(conn, :update, post), post: @valid_attrs)
-    assert redirected_to(conn) == post_path(conn, :show, post)
+    assert redirected_to(conn) == post_path(conn, :edit, post)
     assert Repo.get_by(Post, @valid_attrs)
   end
 

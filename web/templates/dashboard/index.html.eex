@@ -5,13 +5,15 @@
   <thead>
     <tr>
       <th>Post</th>
+      <th>Published</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <%= for post <- @posts do %>
       <tr>
-        <td><%= link post.title, to: post_path(@conn, :show, post) %></td>
+        <td><%= link post.title, to: smart_post_path(@conn, post) %></td>
+        <td><%= post.published_at %></td>
         <td>
           <div class="is-pulled-right">
             <%= link "Edit", to: post_path(@conn, :edit, post), class: "button is-primary is-outlined" %>

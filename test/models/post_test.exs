@@ -20,4 +20,9 @@ defmodule Blog.PostTest do
     changeset = Post.changeset(%Post{}, @valid_attrs)
     assert Ecto.Changeset.get_field(changeset, :slug) == "the-title"
   end
+
+  test "publish sets the published_at" do
+    changeset = Post.changeset(%Post{}, %{body: "Some content.", title: "The Title", publish: true})
+    assert Ecto.Changeset.get_field(changeset, :published_at)
+  end
 end

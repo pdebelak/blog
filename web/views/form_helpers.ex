@@ -19,6 +19,17 @@ defmodule Blog.FormHelpers do
     end
   end
 
+  def checkbox_tag(form, field, options \\ []) do
+    content_tag(:p, class: "control") do
+      label(form, field, class: "checkbox") do
+        [
+          checkbox(form, field, [class: "checkbox"] ++ options),
+          [" ", humanize(field)]
+        ]
+      end
+    end
+  end
+
   def submit_button(text) do
     submit text, class: "button is-primary"
   end

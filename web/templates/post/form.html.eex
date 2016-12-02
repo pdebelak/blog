@@ -4,6 +4,7 @@
       <%= input_tag f, :title %>
       <%= input_tag f, :slug, readonly: true, placeholder: "Will be generated automatically" %>
       <%= textarea_tag f, :body %>
+      <%= checkbox_tag f, :publish, checked: published(@changeset) %>
       <%= submit_button "Submit" %>
     <% end %>
   </div>
