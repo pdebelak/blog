@@ -1,4 +1,5 @@
-const storageKey = 'comment_name';
+export const storageKey = 'comment_name';
+
 export function setName(input, localStorage) {
   if (!input) { return; }
   const name = localStorage.getItem(storageKey);
