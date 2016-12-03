@@ -1,12 +1,9 @@
 <h2 class="subtitle">Sign in</h2>
 
-<div class="columns">
-  <div class="column">
-    <%= form_for @changeset, session_path(@conn, :create), fn f -> %>
-      <%= input_tag f, :username %>
-      <%= password_tag f, :password %>
-      <%= submit_button "Log in" %>
-    <% end %>
-  </div>
-  <div class="column"></div>
-</div>
+<%= half_width do %>
+  <%= form_for @changeset, session_path(@conn, :create), fn f -> %>
+    <%= input_tag f, :username %>
+    <%= password_tag f, :password %>
+    <%= submit_button "Log in" %>
+  <% end %>
+<% end %>

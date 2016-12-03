@@ -7,6 +7,7 @@
       <th>Post</th>
       <th>Published</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +15,11 @@
       <tr>
         <td><%= link post.title, to: smart_post_path(@conn, post) %></td>
         <td><%= post.published_at %></td>
+        <td>
+          <%= if post.published_at do %>
+            <%= link "Comments", to: post_comment_path(@conn, :index, post) %>
+          <% end %>
+        </td>
         <td>
           <div class="is-pulled-right">
             <%= link "Edit", to: post_path(@conn, :edit, post), class: "button is-primary is-outlined" %>

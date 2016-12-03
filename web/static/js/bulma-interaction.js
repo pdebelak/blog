@@ -1,6 +1,4 @@
-function deleteButton() {
-  const deletes = document.querySelectorAll('button.delete');
-
+export function deleteButton(deletes) {
   for (let i = 0; i < deletes.length; i++) {
     deletes[i].addEventListener('click', () => {
       const parent = deletes[i].parentNode;
@@ -9,9 +7,7 @@ function deleteButton() {
   }
 }
 
-function navToggle() {
-  const toggles = document.querySelectorAll('.nav-toggle');
-
+export function navToggle(toggles) {
   for (let i = 0; i < toggles.length; i++) {
     toggles[i].addEventListener('click', () => {
       const toggle = toggles[i];
@@ -22,5 +18,10 @@ function navToggle() {
   }
 }
 
-deleteButton();
-navToggle();
+export default function init() {
+  const deletes = document.querySelectorAll('button.delete');
+  deleteButton(deletes);
+
+  const toggles = document.querySelectorAll('.nav-toggle');
+  navToggle(toggles);
+}

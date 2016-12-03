@@ -1,0 +1,25 @@
+<h1 class="subtitle">Comments for <%= link @post.title, to: post_path(@conn, :show, @post) %></h1>
+<p class="subtitle is-6"><%= link "Back", to: dashboard_path(@conn, :index) %></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for comment <- @comments do %>
+      <tr>
+        <td><%= comment.name %></td>
+        <td><%= comment.body %></td>
+        <td>
+          <div class="is-pulled-right">
+            <%= link "Delete", to: comment_path(@conn, :delete, comment) , method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger", form: [class: "is-inline-block"] %>
+          </div>
+        </td>
+      <tr>
+    <% end %>
+  </tbody>
+</table>

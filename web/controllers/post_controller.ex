@@ -38,7 +38,7 @@ defmodule Blog.PostController do
 
   def show(conn, %{"id" => slug}) do
     post = Post
-    |> preload(:user)
+    |> preload([:user, :comments])
     |> Post.published()
     |> Repo.get_by!(slug: slug)
     render(conn, "show.html", post: post)
