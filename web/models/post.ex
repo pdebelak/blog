@@ -8,6 +8,7 @@ defmodule Blog.Post do
     field :published_at, Ecto.DateTime
     field :publish, :boolean, virtual: true
     belongs_to :user, Blog.User
+    has_many :comments, Blog.Comment
 
     timestamps()
   end

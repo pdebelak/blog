@@ -25,7 +25,9 @@ defmodule Blog.Router do
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete
 
-    resources "/posts", PostController, only: [:show]
+    resources "/posts", PostController, only: [:show] do
+      resources "/comments", CommentController, only: [:create]
+    end
 
     get "/", PostController, :index
     get "/authors/:username/posts", PostController, :index, as: "author_posts"
@@ -35,7 +37,10 @@ defmodule Blog.Router do
     pipe_through [:browser, :admin]
 
     resources "/dashboard", DashboardController, only: [:index]
-    resources "/posts", PostController, only: [:new, :create, :edit, :update, :delete]
+    resources "/posts", PostController, only: [:new, :create, :edit, :update, :delete] do
+      resources "/comments", CommentController, only: [:index]
+    end
+    resources "/comments", CommentController, only: [:delete]
   end
 
   # Other scopes may use custom stacks.
