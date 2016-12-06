@@ -1,6 +1,6 @@
 # Blog
 
-A simple multi-user blog with posts and comments.
+A simple multi-user blog with posts, comments, and tags.
 
 ## Installation
 

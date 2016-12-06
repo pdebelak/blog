@@ -38,20 +38,14 @@
 
     <div>
       <%= if get_flash(@conn, :info) do %>
-        <div class="notification is-info">
-          <button class="delete"></button>
-          <div class="container">
-            <%= get_flash(@conn, :info) %>
-          </div>
-        </div>
+        <%= notification "is-info" do %>
+          <%= get_flash(@conn, :info) %>
+        <% end %>
       <% end %>
       <%= if get_flash(@conn, :error) do %>
-        <div class="notification is-danger">
-          <button class="delete"></button>
-          <div class="container">
-            <%= get_flash(@conn, :error) %>
-          </div>
-        </div>
+        <%= notification "is-danger" do %>
+          <%= get_flash(@conn, :error) %>
+        <% end %>
       <% end %>
     </div>
 

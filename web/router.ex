@@ -30,7 +30,8 @@ defmodule Blog.Router do
     end
 
     get "/", PostController, :index
-    get "/authors/:username/posts", PostController, :index, as: "author_posts"
+    get "/authors/:username", PostController, :index, as: "author_posts"
+    get "/tags/:tag", PostController, :index, as: "tag_posts"
   end
 
   scope "/admin", Blog do

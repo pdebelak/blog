@@ -1,0 +1,3 @@
+<h1 class="title">Posts tagged '<%= @tag.name %>'</h1>
+
+<%= render "posts.html", posts: @posts, conn: @conn %>

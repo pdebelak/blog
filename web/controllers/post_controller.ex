@@ -3,13 +3,22 @@ defmodule Blog.PostController do
 
   alias Blog.{Post, CurrentUser}
 
+  def index(conn, %{"tag" => tag}) do
+    tag = Repo.get_by!(Blog.Tag, slug: tag)
+    posts = Post
+    |> Post.all_published()
+    |> Post.for_tag(tag)
+    |> Repo.all()
+    render(conn, "tag.html", posts: posts, tag: tag)
+  end
+
   def index(conn, %{"username" => username}) do
     user = Repo.get_by!(Blog.User, username: username)
     posts = Post
     |> Post.all_published()
     |> Post.for_user(user)
     |> Repo.all()
-    render(conn, "index.html", posts: posts)
+    render(conn, "user.html", posts: posts, user: user)
   end
   def index(conn, _params) do
     posts = Post
@@ -24,9 +33,7 @@ defmodule Blog.PostController do
   end
 
   def create(conn, %{"post" => post_params}) do
-    changeset = Post.changeset(%Post{user: CurrentUser.current_user(conn)}, post_params)
-
-    case Repo.insert(changeset) do
+    case Blog.UpdatePost.update_post(%Post{user: CurrentUser.current_user(conn)}, post_params) do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post created successfully.")
@@ -38,7 +45,7 @@ defmodule Blog.PostController do
 
   def show(conn, %{"id" => slug}) do
     post = Post
-    |> preload([:user, :comments])
+    |> preload([:user, :comments, :tags])
     |> Post.published()
     |> Repo.get_by!(slug: slug)
     render(conn, "show.html", post: post)
@@ -47,6 +54,7 @@ defmodule Blog.PostController do
   def edit(conn, %{"id" => slug}) do
     post = Post
     |> Post.for_user(CurrentUser.current_user(conn))
+    |> preload(:tags)
     |> Repo.get_by!(slug: slug)
     changeset = Post.changeset(post)
     render(conn, "edit.html", post: post, changeset: changeset)
@@ -55,10 +63,9 @@ defmodule Blog.PostController do
   def update(conn, %{"id" => slug, "post" => post_params}) do
     post = Post
     |> Post.for_user(CurrentUser.current_user(conn))
+    |> preload(:tags)
     |> Repo.get_by!(slug: slug)
-    changeset = Post.changeset(post, post_params)
-
-    case Repo.update(changeset) do
+    case Blog.UpdatePost.update_post(post, post_params) do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post updated successfully.")
