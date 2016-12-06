@@ -13,6 +13,11 @@ A simple multi-user blog with posts, comments, and tags.
 * Start server with `mix phoenix.server`
 * visit [`localhost:4000`](localhost:4000) in your browser.
 
+## Creating users
+
+Users are creating via the command line by running `mix add_user
+username:DESIRED_USERNAME password:DESIRED_PASSWORD`
+
 ## Running tests
 
 * Elixir tests are run with `mix test`
