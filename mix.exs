@@ -18,12 +18,19 @@ defmodule Blog.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Blog, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+     applications: applications(Mix.env)]
+  end
+
+  defp applications(:dev), do: applications(:prod) ++ [:faker]
+  defp applications(:test), do: applications(:prod) ++ [:faker]
+  defp applications(_) do
+    [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+     :phoenix_ecto, :postgrex, :comeonin, :scrivener_ecto]
   end
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "web", "test/support"]
   defp elixirc_paths(_),     do: ["lib", "web"]
 
   # Specifies your project dependencies.
@@ -40,7 +47,9 @@ defmodule Blog.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.5"},
      {:slugger, "~> 0.1.0"},
-     {:earmark, "~> 1.0"}]
+     {:earmark, "~> 1.0"},
+     {:scrivener_ecto, "~> 1.0"},
+     {:faker, "~> 0.5", only: [:dev, :test]}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

@@ -20,5 +20,4 @@ username:DESIRED_USERNAME password:DESIRED_PASSWORD`
 
 ## Running tests
 
-* Elixir tests are run with `mix test`
-* Javascript tests are run with `npm test`
+* `./bin/test` will run both elixir and javascript tests

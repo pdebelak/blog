@@ -1,1 +1,1 @@
-<%= render "posts.html", posts: @posts, conn: @conn %>
+<%= render "posts.html", posts: @posts, conn: @conn, pagination: @pagination %>

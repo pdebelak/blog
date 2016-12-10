@@ -18,4 +18,12 @@ defmodule Blog.LayoutHelpers do
       ]
     end
   end
+
+  def signed_in(conn, do: content) do
+    if Blog.CurrentUser.current_user(conn) do
+      content
+    else
+      ""
+    end
+  end
 end

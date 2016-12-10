@@ -53,6 +53,7 @@ defmodule Blog.Web do
       import Blog.ErrorHelpers
       import Blog.FormHelpers
       import Blog.LayoutHelpers
+      import Blog.PaginationHelpers
       import Blog.Gettext
     end
   end
