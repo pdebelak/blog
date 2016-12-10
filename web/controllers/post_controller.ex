@@ -11,7 +11,6 @@ defmodule Blog.PostController do
     |> Repo.paginate(params)
     render(conn, "tag.html", posts: page.entries, tag: tag, pagination: page)
   end
-
   def index(conn, params = %{"username" => username}) do
     user = Repo.get_by!(Blog.User, username: username)
     page = Post
