@@ -1,9 +1,9 @@
 defmodule Blog.PostControllerTest do
   use Blog.ConnCase
 
-  alias Blog.Post
+  alias Blog.{Post, Fabricator}
   @valid_attrs %{body: "some content", title: "some content"}
-  @invalid_attrs %{}
+  @invalid_attrs %{body: "", title: ""}
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, post_path(conn, :index)
@@ -11,7 +11,7 @@ defmodule Blog.PostControllerTest do
   end
 
   test "renders form for new resources", %{conn: conn} do
-    user = create_user
+    user = Fabricator.create(:user)
     conn = conn
     |> with_current_user(user)
     |> get(post_path(conn, :new))
@@ -19,7 +19,7 @@ defmodule Blog.PostControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    user = create_user
+    user = Fabricator.create(:user)
     conn = conn
     |> with_current_user(user)
     |> post(post_path(conn, :create), post: @valid_attrs)
@@ -28,7 +28,7 @@ defmodule Blog.PostControllerTest do
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    user = create_user
+    user = Fabricator.create(:user)
     conn = conn
     |> with_current_user(user)
     |> post(post_path(conn, :create), post: @invalid_attrs)
@@ -36,8 +36,7 @@ defmodule Blog.PostControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    user = create_user
-    post = Repo.insert! %Post{slug: "slug", title: "Title", user: user, published_at: Ecto.DateTime.utc}
+    post = Fabricator.create(:post)
     conn = get conn, post_path(conn, :show, post)
     assert html_response(conn, 200) =~ post.title
   end
@@ -49,45 +48,36 @@ defmodule Blog.PostControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    user = create_user
-    post = Repo.insert! %Post{user: user, slug: "slug"}
+    post = Fabricator.create(:post)
     conn = conn
-    |> with_current_user(user)
+    |> with_current_user(post.user)
     |> get(post_path(conn, :edit, post))
     assert html_response(conn, 200) =~ "Edit post"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    user = create_user
-    post = Repo.insert! %Post{user: user, slug: "slug"}
+    post = Fabricator.create(:post, %{publish: false})
     conn = conn
-    |> with_current_user(user)
+    |> with_current_user(post.user)
     |> put(post_path(conn, :update, post), post: @valid_attrs)
     assert redirected_to(conn) == post_path(conn, :edit, post)
     assert Repo.get_by(Post, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    user = create_user
-    post = Repo.insert! %Post{user: user, slug: "slug"}
+    post = Fabricator.create(:post)
     conn = conn
-    |> with_current_user(user)
+    |> with_current_user(post.user)
     |> put(post_path(conn, :update, post), post: @invalid_attrs)
     assert html_response(conn, 200) =~ "Edit post"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    user = create_user
-    post = Repo.insert! %Post{user: user, slug: "slug"}
+    post = Fabricator.create(:post)
     conn = conn
-    |> with_current_user(user)
+    |> with_current_user(post.user)
     |> delete(post_path(conn, :delete, post))
     assert redirected_to(conn) == post_path(conn, :index)
     refute Repo.get(Post, post.id)
-  end
-
-  defp create_user do
-    Blog.User.changeset(%{ username: "username", password: "password" })
-    |> Repo.insert!()
   end
 end

@@ -3,12 +3,12 @@ defmodule Blog.CommentController do
 
   alias Blog.Comment
 
-  def index(conn, %{"post_id" => post_id}) do
+  def index(conn, params = %{"post_id" => post_id}) do
     post = Repo.get_by!(Blog.Post, slug: post_id)
-    comments = Comment
+    page = Comment
     |> where(post_id: ^post.id)
-    |> Repo.all()
-    render(conn, "index.html", comments: comments, post: post)
+    |> Repo.paginate(params)
+    render(conn, "index.html", comments: page.entries, post: post, pagination: page)
   end
 
   def create(conn, %{"post_id" => post_id, "comment" => comment_params}) do

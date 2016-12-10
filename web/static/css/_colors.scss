@@ -1,0 +1,13 @@
+// colors are from http://clrs.cc/
+$blue: #0074D9;
+$green: #2ECC40;
+$orange: #FF851B;
+$purple: #B10DC9;
+$red: #FF4136;
+$turquoise: #39CCCC;
+$yellow: #FFDC00;
+$maroon: #85144b;
+
+$primary: $purple;
+$link: $blue;
+$link-invert: findColorInvert($blue);

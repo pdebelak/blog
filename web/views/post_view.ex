@@ -7,15 +7,15 @@ defmodule Blog.PostView do
   end
 
   def published(changeset) do
-    !!Ecto.Changeset.get_field(changeset, :published_at) ||Ecto.Changeset.get_field(changeset, :published)
+    !!Ecto.Changeset.get_field(changeset, :published_at) || Ecto.Changeset.get_field(changeset, :published)
   end
 
   def comment_changeset(post) do
     Blog.Comment.changeset(%Blog.Comment{post_id: post.id})
   end
 
-  def tag_value(%{data: %{ tags: %Ecto.Association.NotLoaded{}}}), do: ""
-  def tag_value(%{data: %{ tags: tags}}) do
+  def tag_value(%{data: %{tags: %Ecto.Association.NotLoaded{}}}), do: ""
+  def tag_value(%{data: %{tags: tags}}) do
     tags
     |> Enum.map(fn tag -> tag.name end)
     |> Enum.join(", ")

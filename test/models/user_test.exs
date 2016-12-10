@@ -1,7 +1,7 @@
 defmodule Blog.UserTest do
   use Blog.ModelCase
 
-  alias Blog.{User, Repo}
+  alias Blog.{User, Fabricator}
 
   @valid_attrs %{"password" => "password!", "username" => "username"}
   @invalid_attrs %{}
@@ -17,8 +17,8 @@ defmodule Blog.UserTest do
   end
 
   test "it coerces usernames to lowercase" do
-    user = User.changeset(%User{}, %{password: "password", username: "Username"}) |> Repo.insert!
-    {:error, _} = User.changeset(%{password: "password", username: "username"}) |> Repo.insert
+    user = Fabricator.create(:user, %{username: "Username"})
+    {:error, _} = Fabricator.try_create(:user, %{username: "username"})
     assert user.username == "username"
   end
 
@@ -28,12 +28,12 @@ defmodule Blog.UserTest do
   end
 
   test "authenticate with good password" do
-    User.changeset(@valid_attrs) |> Repo.insert!
-    {:ok, _} = User.authenticate(@valid_attrs)
+    user = Fabricator.create(:user)
+    {:ok, _} = User.authenticate(%{"username" => user.username, "password" => user.password})
   end
 
   test "authenticate with bad password" do
-    User.changeset(@valid_attrs) |> Repo.insert!
+    Fabricator.create(:user)
     {:error, _} = User.authenticate(%{"username" => "username", "password" => "wrong"})
   end
 

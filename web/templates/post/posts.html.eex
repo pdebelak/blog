@@ -1,5 +1,5 @@
 <%= for post <- @posts do %>
-  <h1 class="title"><%= link post.title, to: post_path(@conn, :show, post) %></h1>
+  <h1 class="title"><%= link post.title, to: post_path(@conn, :show, post), class: "is-dark" %></h1>
   <p class="subtitle is-6">By <%= link post.user.username, to: author_posts_path(@conn, :index, post.user) %></p>
   <div class="content">
     <%= post_body(post) %>
@@ -9,3 +9,4 @@
   <% end %>
   <hr>
 <% end %>
+<%= render_pagination(@conn, @pagination) %>

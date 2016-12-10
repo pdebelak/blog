@@ -1,3 +1,3 @@
 <h1 class="title">Posts by <%= @user.username %></h1>
 
-<%= render "posts.html", posts: @posts, conn: @conn %>
+<%= render "posts.html", posts: @posts, conn: @conn, pagination: @pagination %>

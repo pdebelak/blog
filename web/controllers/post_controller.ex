@@ -3,28 +3,28 @@ defmodule Blog.PostController do
 
   alias Blog.{Post, CurrentUser}
 
-  def index(conn, %{"tag" => tag}) do
+  def index(conn, params = %{"tag" => tag}) do
     tag = Repo.get_by!(Blog.Tag, slug: tag)
-    posts = Post
+    page = Post
     |> Post.all_published()
     |> Post.for_tag(tag)
-    |> Repo.all()
-    render(conn, "tag.html", posts: posts, tag: tag)
+    |> Repo.paginate(params)
+    render(conn, "tag.html", posts: page.entries, tag: tag, pagination: page)
   end
 
-  def index(conn, %{"username" => username}) do
+  def index(conn, params = %{"username" => username}) do
     user = Repo.get_by!(Blog.User, username: username)
-    posts = Post
+    page = Post
     |> Post.all_published()
     |> Post.for_user(user)
-    |> Repo.all()
-    render(conn, "user.html", posts: posts, user: user)
+    |> Repo.paginate(params)
+    render(conn, "user.html", posts: page.entries, user: user, pagination: page)
   end
-  def index(conn, _params) do
-    posts = Post
+  def index(conn, params) do
+    page = Post
     |> Post.all_published()
-    |> Repo.all()
-    render(conn, "index.html", posts: posts)
+    |> Repo.paginate(params)
+    render(conn, "index.html", posts: page.entries, pagination: page)
   end
 
   def new(conn, _params) do
