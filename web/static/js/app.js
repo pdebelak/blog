@@ -24,3 +24,6 @@ initBulma();
 
 import initComments from './comments';
 initComments();
+
+import initPreview from './preview-post';
+initPreview();

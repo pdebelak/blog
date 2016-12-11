@@ -1,0 +1,8 @@
+<h1 class="title"><%= @post.title %></h1>
+<p class="subtitle is-6">By <%= link @post.user.username, to: author_posts_path(@conn, :index, @post.user) %></p>
+<div class="content">
+  <%= post_body(@post) %>
+  <%= for tag <- @post.tags do %>
+    <%= link tag.name, to: tag_posts_path(@conn, :index, tag), class: "tag" %>
+  <% end %>
+</div>

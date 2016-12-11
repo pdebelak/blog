@@ -11,7 +11,6 @@ defmodule Blog.PostController do
     |> Repo.paginate(params)
     render(conn, "tag.html", posts: page.entries, tag: tag, pagination: page)
   end
-
   def index(conn, params = %{"username" => username}) do
     user = Repo.get_by!(Blog.User, username: username)
     page = Post
@@ -87,5 +86,12 @@ defmodule Blog.PostController do
     conn
     |> put_flash(:info, "Post deleted successfully.")
     |> redirect(to: post_path(conn, :index))
+  end
+
+  def preview(conn, %{"post" => post_params}) do
+    post = Blog.UpdatePost.preview_post(%Post{user: CurrentUser.current_user(conn)}, post_params)
+    conn
+    |> put_layout(false)
+    |> render("post.html", post: post)
   end
 end

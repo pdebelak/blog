@@ -5,9 +5,24 @@ defmodule Blog.PostControllerTest do
   @valid_attrs %{body: "some content", title: "some content"}
   @invalid_attrs %{body: "", title: ""}
 
-  test "lists all entries on index", %{conn: conn} do
+  test "lists all published entries on index", %{conn: conn} do
+    published_post = Fabricator.create(:post)
+    unpublished_post = Fabricator.create(:post, %{publish: false})
     conn = get conn, post_path(conn, :index)
-    assert html_response(conn, 200)
+    assert html_response(conn, 200) =~ published_post.title
+    refute html_response(conn, 200) =~ unpublished_post.title
+  end
+
+  test "lists all entries for a tag", %{conn: conn} do
+    tag = Fabricator.create(:tag)
+    conn = get conn, tag_posts_path(conn, :index, tag)
+    assert html_response(conn, 200) =~ "Posts tagged '#{tag.name}'"
+  end
+
+  test "lists all entries for a user", %{conn: conn} do
+    user = Fabricator.create(:user)
+    conn = get conn, author_posts_path(conn, :index, user)
+    assert html_response(conn, 200) =~ "Posts by #{user.username}"
   end
 
   test "renders form for new resources", %{conn: conn} do
@@ -79,5 +94,13 @@ defmodule Blog.PostControllerTest do
     |> delete(post_path(conn, :delete, post))
     assert redirected_to(conn) == post_path(conn, :index)
     refute Repo.get(Post, post.id)
+  end
+
+  test "preview previews a post without creating/editing it", %{conn: conn} do
+    conn = conn
+    |> with_current_user(Fabricator.create(:user))
+    |> post(post_path(conn, :preview), post: @valid_attrs)
+    assert html_response(conn, 200) =~ @valid_attrs.title
+    refute Repo.get_by(Post, @valid_attrs)
   end
 end

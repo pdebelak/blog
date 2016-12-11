@@ -38,6 +38,8 @@ defmodule Blog.Router do
     pipe_through [:browser, :admin]
 
     resources "/dashboard", DashboardController, only: [:index]
+    post "/post-preview", PostController, :preview
+    put "/post-preview", PostController, :preview
     resources "/posts", PostController, only: [:new, :create, :edit, :update, :delete] do
       resources "/comments", CommentController, only: [:index]
     end

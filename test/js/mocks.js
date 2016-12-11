@@ -23,6 +23,12 @@ function createClassList() {
   return classList;
 }
 
+function fakeEvent() {
+  return {
+    preventDefault() {},
+  };
+}
+
 // fakeHtmlNode is meant to act like an html node in a non-browser environment.
 // It currently only supports the functions explicitly needed in the tests. It
 // takes a depth parameter to know how many `parentNode`s to create.
@@ -42,7 +48,7 @@ export function fakeHtmlNode(depth = 2) {
     },
     trigger(event) {
       if (this.callbacks[event]) {
-        this.callbacks[event]();
+        this.callbacks[event](fakeEvent());
       }
     },
     queried: {},
