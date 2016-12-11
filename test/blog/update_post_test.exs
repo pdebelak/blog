@@ -34,4 +34,11 @@ defmodule Blog.UpdatePostTest do
     assert length(tags) == 1
     assert List.first(tags).name == "Tag2"
   end
+
+  test "previews a post" do
+    post = preview_post(%Post{user_id: Fabricator.create(:user).id}, %{"body" => "body", "title" => "title", "tags" => "Tag1, Tag2"})
+    tags = post.tags
+    assert length(tags) == 2
+    assert post.body == "body"
+  end
 end

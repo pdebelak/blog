@@ -87,4 +87,11 @@ defmodule Blog.PostController do
     |> put_flash(:info, "Post deleted successfully.")
     |> redirect(to: post_path(conn, :index))
   end
+
+  def preview(conn, %{"post" => post_params}) do
+    post = Blog.UpdatePost.preview_post(%Post{user: CurrentUser.current_user(conn)}, post_params)
+    conn
+    |> put_layout(false)
+    |> render("post.html", post: post)
+  end
 end

@@ -2,11 +2,20 @@ defmodule Blog.UpdatePost do
   alias Blog.{Post, Tag, Repo}
   import Ecto.Query
 
+  def preview_post(post, post_params) do
+    post_changeset(post, post_params)
+    |> Ecto.Changeset.apply_changes()
+  end
+
   def update_post(post, post_params) do
+    post_changeset(post, post_params)
+    |> Repo.insert_or_update()
+  end
+
+  defp post_changeset(post, post_params) do
     post
     |> Post.changeset(post_params)
     |> Ecto.Changeset.put_assoc(:tags, tags_from(post_params))
-    |> Repo.insert_or_update()
   end
 
   defp tags_from(%{"tags" => ""}), do: []

@@ -95,4 +95,12 @@ defmodule Blog.PostControllerTest do
     assert redirected_to(conn) == post_path(conn, :index)
     refute Repo.get(Post, post.id)
   end
+
+  test "preview previews a post without creating/editing it", %{conn: conn} do
+    conn = conn
+    |> with_current_user(Fabricator.create(:user))
+    |> post(post_path(conn, :preview), post: @valid_attrs)
+    assert html_response(conn, 200) =~ @valid_attrs.title
+    refute Repo.get_by(Post, @valid_attrs)
+  end
 end
