@@ -25,7 +25,7 @@ defmodule Blog.Mixfile do
   defp applications(:test), do: applications(:prod) ++ [:faker]
   defp applications(_) do
     [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-     :phoenix_ecto, :postgrex, :comeonin, :scrivener_ecto]
+     :phoenix_ecto, :postgrex, :comeonin, :scrivener_ecto, :slugger, :earmark]
   end
 
   # Specifies which paths to compile per environment.
