@@ -7,7 +7,7 @@ defmodule Blog.PostControllerTest do
 
   test "lists all published entries on index", %{conn: conn} do
     published_post = Fabricator.create(:post)
-    unpublished_post = Fabricator.create(:post, %{publish: false})
+    unpublished_post = Fabricator.create(:post, %{user: published_post.user, publish: false})
     conn = get conn, post_path(conn, :index)
     assert html_response(conn, 200) =~ published_post.title
     refute html_response(conn, 200) =~ unpublished_post.title
