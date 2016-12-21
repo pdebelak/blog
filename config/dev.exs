@@ -26,6 +26,8 @@ config :blog, Blog.Endpoint,
     ]
   ]
 
+config :blog, :image_uploader, Blog.ImageUploader
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

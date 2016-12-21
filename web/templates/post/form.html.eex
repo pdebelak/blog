@@ -1,21 +1,4 @@
-<div class="tabs">
-  <ul>
-    <li class="is-active">
-      <a id="write-tab">Write</a>
-    </li>
-    <li>
-      <a id="preview-tab">Preview</a>
-    </li>
-  </ul>
-</div>
-<div class="is-hidden" id="preview-container"></div>
-<%= half_width do %>
-  <%= form_for @changeset, @action, [id: "post-form"], fn f -> %>
-    <%= input_tag f, :title %>
-    <%= input_tag f, :slug, readonly: true, placeholder: "Will be generated automatically" %>
-    <%= textarea_tag f, :body %>
-    <%= input_tag f, :tags, value: tag_value(@changeset), placeholder: "i.e. Hats, Cats" %>
-    <%= checkbox_tag f, :publish, checked: published(@changeset) %>
-    <%= submit_button "Submit" %>
-  <% end %>
-<% end %>
+<%= render_react "PostForm", %{
+  csrfToken: get_csrf_token,
+  changeset: changeset_map(@changeset)
+} %>

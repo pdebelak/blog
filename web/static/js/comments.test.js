@@ -1,7 +1,6 @@
-import assert from 'assert';
 import { fakeStorage, fakeHtmlNode } from './mocks';
 
-import { setName, saveName, storageKey } from '../../web/static/js/comments';
+import { setName, saveName, storageKey } from './comments';
 
 describe('setName', () => {
   describe('when no input is passed', () => {
@@ -14,7 +13,7 @@ describe('setName', () => {
     it('sets input value to empty string', () => {
       const input = {};
       setName(input, fakeStorage());
-      assert.equal(input.value, '');
+      expect(input.value).toEqual('');
     });
   });
 
@@ -24,7 +23,7 @@ describe('setName', () => {
       storage.setItem(storageKey, 'value');
       const input = {};
       setName(input, storage);
-      assert.equal(input.value, 'value');
+      expect(input.value).toEqual('value');
     });
   });
 });
@@ -52,7 +51,7 @@ describe('saveName', () => {
       const storage = fakeStorage();
       saveName(form, input, storage);
       form.trigger('submit');
-      assert.equal(storage.getItem(storageKey), 'value');
+      expect(storage.getItem(storageKey)).toEqual('value');
     });
   });
 });

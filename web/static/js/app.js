@@ -19,11 +19,10 @@ import 'phoenix_html';
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+import initReactNodes from './mount-react-node';
 import initBulma from './bulma-interaction';
-initBulma();
-
 import initComments from './comments';
-initComments();
 
-import initPreview from './preview-post';
-initPreview();
+initReactNodes();
+initBulma();
+initComments();

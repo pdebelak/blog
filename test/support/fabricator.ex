@@ -18,6 +18,10 @@ defmodule Blog.Fabricator do
     set_params = Map.merge(%{name: Faker.Lorem.word, body: Faker.Lorem.sentence(20), post: build(:post)}, params)
     Blog.Comment.changeset(%Blog.Comment{post: set_params.post}, set_params)
   end
+  def changeset(:image, params) do
+    set_params = Map.merge(%{public_id: "public_id"}, params)
+    Blog.Image.changeset(%Blog.Image{}, set_params)
+  end
 
   def build(type), do: build(type, %{})
   def build(type, params) do

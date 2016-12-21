@@ -24,11 +24,4 @@ defmodule Blog.LayoutHelpersTest do
     end |> safe_to_string()
     assert half == ~s(<div class="columns"><div class="column">Content</div><div class="column"></div></div>)
   end
-
-  test "notification" do
-    notification = notification("is-info") do
-      "Content"
-    end |> safe_to_string()
-    assert notification == ~s(<div class="notification is-info"><button class="delete"></button><div class="container">Content</div></div>)
-  end
 end

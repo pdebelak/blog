@@ -11,12 +11,7 @@ defmodule Blog.LayoutHelpers do
   end
 
   def notification(notification_class, do: content) do
-    content_tag(:div, class: "notification #{notification_class}") do
-      [
-        content_tag(:button, "", class: "delete"),
-        content_tag(:div, content, class: "container")
-      ]
-    end
+    render_react("Notification", %{ "notificationClass" => notification_class, "content" => content |> safe_to_string() })
   end
 
   def signed_in(conn, do: content) do
@@ -25,5 +20,9 @@ defmodule Blog.LayoutHelpers do
     else
       ""
     end
+  end
+
+  def render_react(component, props, options \\ [tag: :div]) do
+    content_tag(options[:tag], "", [{:data, [react: true, component: component, props: Poison.encode!(props)] }])
   end
 end
