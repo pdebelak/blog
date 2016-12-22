@@ -1,6 +1,6 @@
-import { fakeStorage, fakeHtmlNode } from './mocks';
+import { fakeStorage, fakeHtmlNode } from '../mocks';
 
-import { setName, saveName, storageKey } from './comments';
+import { setName, saveName, storageKey } from '../../../web/static/js/comments';
 
 describe('setName', () => {
   describe('when no input is passed', () => {

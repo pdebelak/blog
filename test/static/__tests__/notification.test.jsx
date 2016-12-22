@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import Notification from './notification';
+
+import Notification from '../../../web/static/js/bulma/notification';
 
 it('displays content with right class', () => {
   const notification = shallow(

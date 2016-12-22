@@ -1,4 +1,4 @@
-import { navToggle } from './bulma-interaction';
+import { navToggle } from '../../../web/static/js/bulma-interaction';
 
 it('toggles is-active on the nav', () => {
   const toggle = document.createElement('div');

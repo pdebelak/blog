@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import Modal from './modal';
+import Modal from '../../../web/static/js/bulma/modal';
 
 it('closes when close button is clicked', () => {
   let closeCalled = false;
