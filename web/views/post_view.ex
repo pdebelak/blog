@@ -20,4 +20,29 @@ defmodule Blog.PostView do
     |> Enum.map(fn tag -> tag.name end)
     |> Enum.join(", ")
   end
+
+  def changeset_map(changeset) do
+    %{
+      action: changeset.action,
+      post: post_as_map(changeset),
+      errors: changeset_errors(changeset)
+    }
+  end
+
+  defp post_as_map(changeset = %{data: post}) do
+    %{
+      id: post.id,
+      body: post.body,
+      title: post.title,
+      slug: post.slug,
+      publish: published(changeset),
+      tags: tag_value(changeset)
+    }
+  end
+
+  defp changeset_errors(%{errors: errors}) do
+    errors
+    |> Enum.map(fn {field, {error, _}} -> {field, error} end)
+    |> Enum.into(%{})
+  end
 end

@@ -6,6 +6,8 @@ config :blog, Blog.Endpoint,
   http: [port: 4001],
   server: false
 
+config :blog, :image_uploader, Blog.MockImageUploader
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 

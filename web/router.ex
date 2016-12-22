@@ -39,15 +39,10 @@ defmodule Blog.Router do
 
     resources "/dashboard", DashboardController, only: [:index]
     post "/post-preview", PostController, :preview
-    put "/post-preview", PostController, :preview
     resources "/posts", PostController, only: [:new, :create, :edit, :update, :delete] do
       resources "/comments", CommentController, only: [:index]
     end
     resources "/comments", CommentController, only: [:delete]
+    resources "/images", ImageController, only: [:index, :create]
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", Blog do
-  #   pipe_through :api
-  # end
 end

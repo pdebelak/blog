@@ -1,0 +1,11 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "jsx-a11y/no-static-element-interactions": 0
+  }
+}

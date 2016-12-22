@@ -25,7 +25,7 @@ defmodule Blog.Mixfile do
   defp applications(:test), do: applications(:prod) ++ [:faker]
   defp applications(_) do
     [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-     :phoenix_ecto, :postgrex, :comeonin, :scrivener_ecto, :slugger, :earmark]
+     :phoenix_ecto, :postgrex, :comeonin, :scrivener_ecto, :slugger, :earmark, :cloudex]
   end
 
   # Specifies which paths to compile per environment.
@@ -49,7 +49,8 @@ defmodule Blog.Mixfile do
      {:slugger, "~> 0.1.0"},
      {:earmark, "~> 1.0"},
      {:scrivener_ecto, "~> 1.0"},
-     {:faker, "~> 0.5", only: [:dev, :test]}]
+     {:faker, "~> 0.5", only: [:dev, :test]},
+     {:cloudex, "~> 0.1.10"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

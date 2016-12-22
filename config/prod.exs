@@ -16,6 +16,8 @@ config :blog, Blog.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/manifest.json"
 
+config :blog, :image_uploader, Blog.ImageUploader
+
 # Do not print debug messages in production
 config :logger, level: :info
 
