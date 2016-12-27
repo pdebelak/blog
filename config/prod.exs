@@ -13,8 +13,10 @@ use Mix.Config
 # which you typically run after static files are built.
 config :blog, Blog.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  url: [scheme: "https", host: "shielded-reaches-11140.herokuapp.com", port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  cache_static_manifest: "priv/static/manifest.json",
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 config :blog, :image_uploader, Blog.ImageUploader
 
@@ -61,7 +63,9 @@ config :logger, level: :info
 # for the new static assets to be served after a hot upgrade:
 #
 #     config :blog, Blog.Endpoint, root: "."
-
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
+#
+config :blog, Blog.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: true
