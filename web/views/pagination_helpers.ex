@@ -1,6 +1,7 @@
 defmodule Blog.PaginationHelpers do
   use Phoenix.HTML
 
+  def render_pagination(_conn, %{total_pages: 0}), do: ""
   def render_pagination(_conn, %{total_pages: 1}), do: ""
   def render_pagination(conn, pagination) do
     content_tag(:nav, class: "pagination") do
