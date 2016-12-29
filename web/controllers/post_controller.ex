@@ -36,7 +36,7 @@ defmodule Blog.PostController do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post created successfully.")
-        |> redirect(to: post_path(conn, :show, post))
+        |> redirect(to: Blog.DashboardView.smart_post_path(conn, post))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

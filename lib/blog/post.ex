@@ -47,18 +47,18 @@ defmodule Blog.Post do
 
   def published(queryable) do
     from post in queryable,
-    where: not is_nil(post.published_at)
+      where: not is_nil(post.published_at)
   end
 
   def for_user(queryable, user) do
     from post in queryable,
-    where: post.user_id == ^user.id
+      where: post.user_id == ^user.id
   end
 
   def for_tag(queryable, tag) do
     from post in queryable,
-    join: tag in assoc(post, :tags),
-    where: tag.slug == ^tag.slug
+      join: tag in assoc(post, :tags),
+      where: tag.slug == ^tag.slug
   end
 end
 

@@ -19,18 +19,21 @@
               <% end %>
             </div>
 
-            <%= signed_in(@conn) do %>
-              <span id="nav-toggle" class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
+            <span id="nav-toggle" class="nav-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
 
-              <div id="nav-menu" class="nav-right nav-menu">
+            <div id="nav-menu" class="nav-right nav-menu">
+              <%= for page <- pages do %>
+                <%= page_link @conn, page %>
+              <% end %>
+              <%= signed_in(@conn) do %>
                 <%= write_link(@conn) %>
                 <%= link "Logout", to: session_path(@conn, :delete), form: [class: "nav-item has-text-left"], method: :delete %>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           </nav>
         </div>
       </div>
