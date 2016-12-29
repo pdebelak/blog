@@ -22,6 +22,10 @@ defmodule Blog.Fabricator do
     set_params = Map.merge(%{public_id: "public_id"}, params)
     Blog.Image.changeset(%Blog.Image{}, set_params)
   end
+  def changeset(:page, params) do
+    set_params = Map.merge(%{title: Faker.Lorem.sentence(10), body: Faker.Lorem.paragraph(%Range{first: 2, last: 4}), public: true, description: "Simply the best"}, params)
+    Blog.Page.changeset(%Blog.Page{}, set_params)
+  end
 
   def build(type), do: build(type, %{})
   def build(type, params) do

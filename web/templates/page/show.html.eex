@@ -1,0 +1,4 @@
+<h1 class="title"><%= @page.title %></h1>
+<div class="content">
+  <%= Blog.PostView.post_body(@page) %>
+</div>

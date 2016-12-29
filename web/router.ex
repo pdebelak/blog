@@ -29,6 +29,8 @@ defmodule Blog.Router do
       resources "/comments", CommentController, only: [:create]
     end
 
+    resources "/page", PageController, only: [:show]
+
     get "/", PostController, :index
     get "/authors/:username", PostController, :index, as: "author_posts"
     get "/tags/:tag", PostController, :index, as: "tag_posts"
@@ -44,5 +46,6 @@ defmodule Blog.Router do
     end
     resources "/comments", CommentController, only: [:delete]
     resources "/images", ImageController, only: [:index, :create]
+    resources "/pages", PageController, only: [:index, :new, :create, :edit, :update, :delete]
   end
 end
