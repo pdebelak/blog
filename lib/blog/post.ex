@@ -7,6 +7,7 @@ defmodule Blog.Post do
   schema "posts" do
     field :title, :string
     field :slug, :string
+    field :description, :string
     field :body, :string
     field :published_at, Ecto.DateTime
     field :publish, :boolean, virtual: true
@@ -23,10 +24,10 @@ defmodule Blog.Post do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :body, :publish])
+    |> cast(params, [:title, :body, :publish, :description])
     |> set_slug()
     |> set_published_at()
-    |> validate_required([:title, :slug, :body])
+    |> validate_required([:title, :slug, :body, :description])
     |> unique_constraint(:slug)
   end
 

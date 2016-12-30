@@ -2,7 +2,7 @@ defmodule Blog.PostControllerTest do
   use Blog.ConnCase
 
   alias Blog.{Post, Fabricator}
-  @valid_attrs %{body: "some content", title: "some content"}
+  @valid_attrs %{body: "some content", title: "some content", description: "some content"}
   @invalid_attrs %{body: "", title: ""}
 
   test "lists all published entries on index", %{conn: conn} do

@@ -9,6 +9,7 @@ export default class extends React.Component {
       action: React.PropTypes.string,
       errors: React.PropTypes.object.isRequired,
       title: React.PropTypes.string,
+      description: React.PropTypes.string,
       body: React.PropTypes.string,
       tags: React.PropTypes.string,
       publish: React.PropTypes.bool,
@@ -65,6 +66,15 @@ export default class extends React.Component {
                 readOnly: true,
                 defaultValue: this.props.post.slug,
                 placeholder: 'Will be generated automatically',
+              }}
+            />
+            <Input
+              name="post[description]"
+              label="Description"
+              error={this.errorFor('description')}
+              inputProps={{
+                defaultValue: this.props.description,
+                onChange: e => this.props.changeField('description', e.target.value),
               }}
             />
             <TextArea

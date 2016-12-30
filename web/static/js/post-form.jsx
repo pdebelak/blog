@@ -25,6 +25,7 @@ export default class extends React.Component {
     this.state = {
       activeTab: tabNames[0],
       title: this.props.changeset.post.title || '',
+      description: this.props.changeset.post.description || '',
       body: this.props.changeset.post.body || '',
       tags: this.props.changeset.post.tags || '',
       publish: this.props.changeset.post.publish || false,
@@ -91,6 +92,7 @@ export default class extends React.Component {
         action={this.props.changeset.action}
         post={this.props.changeset.post}
         title={this.state.title}
+        description={this.state.description}
         body={this.state.body}
         tags={this.state.tags}
         publish={this.state.publish}

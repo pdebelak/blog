@@ -4,19 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog</title>
+    <title><%= title_for(@conn) %></title>
+    <meta name="description" content="<%= description_for(@conn) %>">
+    <%= og_meta_tags(@conn) %>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
-  <body>
+  <body itemscope itemtype="http://schema.org/Blog">
     <section class="hero is-primary">
       <div class="hero-head">
         <div class="container">
           <nav class="nav">
             <div class="nav-left">
-              <%= link to: post_path(@conn, :index), class: "nav-item is-brand" do %>
-                <h1 class="title">Blog</h1>
+              <%= link to: post_path(@conn, :index), class: "nav-item" do %>
+                <h1 class="title" itemprop="name"><%= title %></h1>
               <% end %>
+              <meta itemprop="description" content="<%= description %>">
             </div>
 
             <span id="nav-toggle" class="nav-toggle">

@@ -3,7 +3,7 @@ defmodule Blog.PostTest do
 
   alias Blog.Post
 
-  @valid_attrs %{body: "Some content.", title: "The Title"}
+  @valid_attrs %{body: "Some content.", title: "The Title", description: "The description"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
