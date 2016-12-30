@@ -30,4 +30,32 @@ defmodule Blog.LayoutViewTest do
     link = page_link(%Plug.Conn{request_path: "/other"}, %Blog.Page{slug: "about"}) |> safe_to_string()
     refute String.match?(link, ~r/is-active/)
   end
+
+  test "title_for with a post" do
+    conn = %Plug.Conn{assigns: %{post: %Blog.Post{title: "Post Title"}}}
+    assert title_for(conn) == "Post Title | Blog Title"
+  end
+
+  test "title_for with a page" do
+    conn = %Plug.Conn{assigns: %{page: %Blog.Page{title: "Page Title"}}}
+    assert title_for(conn) == "Page Title | Blog Title"
+  end
+
+  test "title_for with neither" do
+    assert title_for(%Plug.Conn{}) == "Blog Title"
+  end
+
+  test "description_for with a post" do
+    conn = %Plug.Conn{assigns: %{post: %Blog.Post{description: "Post description"}}}
+    assert description_for(conn) == "Post description"
+  end
+
+  test "description_for with a page" do
+    conn = %Plug.Conn{assigns: %{page: %Blog.Page{description: "Page description"}}}
+    assert description_for(conn) == "Page description"
+  end
+
+  test "description_for with neither" do
+    assert description_for(%Plug.Conn{}) == "Blog description"
+  end
 end

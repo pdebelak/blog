@@ -11,6 +11,9 @@ config :blog, :image_uploader, Blog.MockImageUploader
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :blog, :title, "Blog Title"
+config :blog, :description, "Blog description"
+
 # Configure your database
 config :blog, Blog.Repo,
   adapter: Ecto.Adapters.Postgres,

@@ -22,6 +22,10 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :blog, :image_uploader, Blog.ImageUploader
+config :blog, :title, "Another Flavor"
+config :blog, :description, "This blog's the hog"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

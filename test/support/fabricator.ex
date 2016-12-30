@@ -7,7 +7,7 @@ defmodule Blog.Fabricator do
     Blog.User.changeset(%Blog.User{}, set_params)
   end
   def changeset(:post, params) do
-    set_params = Map.merge(%{title: Faker.Lorem.sentence(10), body: Faker.Lorem.paragraph(%Range{first: 2, last: 4}), user: build(:user), publish: true}, params)
+    set_params = Map.merge(%{title: Faker.Lorem.sentence(10), body: Faker.Lorem.paragraph(%Range{first: 2, last: 4}), user: build(:user), publish: true, description: "The description"}, params)
     Blog.Post.changeset(%Blog.Post{user: set_params.user}, set_params)
   end
   def changeset(:tag, params) do

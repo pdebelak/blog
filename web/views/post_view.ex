@@ -34,6 +34,7 @@ defmodule Blog.PostView do
       id: post.id,
       body: post.body,
       title: post.title,
+      description: post.description,
       slug: post.slug,
       publish: published(changeset),
       tags: tag_value(changeset)

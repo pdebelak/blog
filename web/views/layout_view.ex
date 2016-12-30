@@ -1,6 +1,9 @@
 defmodule Blog.LayoutView do
   use Blog.Web, :view
 
+  @title Application.get_env(:blog, :title)
+  @description Application.get_env(:blog, :description)
+
   def pages do
     Blog.Page
     |> Blog.Page.public()
@@ -25,5 +28,43 @@ defmodule Blog.LayoutView do
     else
       "nav-item"
     end
+  end
+
+  def title, do: @title
+  def description, do: @description
+
+  def title_for(%{assigns: %{post: post}}) do
+    "#{post.title} | #{title}"
+  end
+  def title_for(%{assigns: %{page: page}}) do
+    "#{page.title} | #{title}"
+  end
+  def title_for(_conn), do: title
+
+  def description_for(%{assigns: %{post: post}}), do: post.description
+  def description_for(%{assigns: %{page: page}}), do: page.description
+  def description_for(_conn), do: description
+
+  def og_meta_tags(conn=%{assigns: %{post: post}}) do
+    [
+      tag(:meta, property: "og:url", content: post_url(conn, :show, post)),
+      tag(:meta, property: "og:type", content: "article"),
+      tag(:meta, property: "og:title", content: post.title),
+      tag(:meta, property: "og:description", content: post.description)
+    ]
+  end
+  def og_meta_tags(conn=%{assigns: %{page: page}}) do
+    [
+      tag(:meta, property: "og:url", content: page_url(conn, :show, page)),
+      tag(:meta, property: "og:title", content: page.title),
+      tag(:meta, property: "og:description", content: page.description)
+    ]
+  end
+  def og_meta_tags(conn) do
+    [
+      tag(:meta, property: "og:url", content: post_url(conn, :index)),
+      tag(:meta, property: "og:title", content: title),
+      tag(:meta, property: "og:description", content: description)
+    ]
   end
 end
