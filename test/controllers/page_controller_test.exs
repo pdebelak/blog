@@ -72,7 +72,7 @@ defmodule Blog.PageControllerTest do
     conn = conn
     |> with_current_user(user)
     |> put(page_path(conn, :update, page), page: @valid_attrs)
-    assert redirected_to(conn) == page_path(conn, :show, page)
+    assert redirected_to(conn) == page_path(conn, :index)
     assert Repo.get_by(Page, @valid_attrs)
   end
 
