@@ -2,28 +2,26 @@
 
 <hr>
 
-<%= half_width do %>
-  <h2 class="subtitle">Comments</h2>
-  <%= for comment <- Enum.reverse(@post.comments) do %>
-    <div class="card is-fullwidth has-margin-bottom">
-      <header class="card-header">
-        <p class="card-header-title">
-          <%= comment.name %>
-        </p>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          <%= comment.body %>
-        </div>
+<h2 class="subtitle">Comments</h2>
+<%= for comment <- Enum.reverse(@post.comments) do %>
+  <div class="card is-fullwidth has-margin-bottom">
+    <header class="card-header">
+      <p class="card-header-title">
+        <%= comment.name %>
+      </p>
+    </header>
+    <div class="card-content">
+      <div class="content">
+        <%= comment.body %>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <h3 class="subtitle has-padding-top">Write Comment</h3>
-  <%= form_for comment_changeset(@post), post_comment_path(@conn, :create, @post), [id: "commenter_form"], fn f -> %>
-    <%= input_tag f, :name, id: :commenter_name, required: true %>
-    <%= hidden_input f, :post_id %>
-    <%= textarea_tag f, :body, required: true %>
-    <%= submit_button "Comment" %>
-  <% end %>
+<h3 class="subtitle has-padding-top">Write Comment</h3>
+<%= form_for comment_changeset(@post), post_comment_path(@conn, :create, @post), [id: "commenter_form"], fn f -> %>
+  <%= input_tag f, :name, id: :commenter_name, required: true %>
+  <%= hidden_input f, :post_id %>
+  <%= textarea_tag f, :body, required: true %>
+  <%= submit_button "Comment" %>
 <% end %>

@@ -11,6 +11,7 @@
       <th>Published</th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -24,10 +25,10 @@
           <% end %>
         </td>
         <td>
-          <div class="is-pulled-right">
-            <%= link "Edit", to: post_path(@conn, :edit, post), class: "button is-primary is-outlined" %>
-            <%= link "Delete", to: post_path(@conn, :delete, post) , method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger", form: [class: "is-inline-block"] %>
-          </div>
+          <%= link "Edit", to: post_path(@conn, :edit, post), class: "button is-primary is-outlined" %>
+        </td>
+        <td>
+          <%= link "Delete", to: post_path(@conn, :delete, post) , method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger", form: [class: "is-inline-block"] %>
         </td>
       <tr>
     <% end %>

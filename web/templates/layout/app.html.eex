@@ -16,7 +16,7 @@
         <div class="container">
           <nav class="nav">
             <div class="nav-left">
-              <%= link to: post_path(@conn, :index), class: "nav-item" do %>
+              <%= link to: post_path(@conn, :index), class: "nav-item logo" do %>
                 <h1 class="title" itemprop="name"><%= title %></h1>
               <% end %>
               <meta itemprop="description" content="<%= description %>">

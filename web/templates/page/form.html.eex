@@ -1,10 +1,8 @@
-<%= half_width do %>
-  <%= form_for @changeset, @action, fn f -> %>
-    <%= input_tag f, :title %>
-    <%= input_tag f, :slug, readonly: true %>
-    <%= input_tag f, :description %>
-    <%= textarea_tag f, :body %>
-    <%= checkbox_tag f, :public %>
-    <%= submit_button "Submit" %>
-  <% end %>
+<%= form_for @changeset, @action, fn f -> %>
+  <%= input_tag f, :title %>
+  <%= input_tag f, :slug, readonly: true %>
+  <%= input_tag f, :description %>
+  <%= textarea_tag f, :body %>
+  <%= checkbox_tag f, :public %>
+  <%= submit_button "Submit" %>
 <% end %>

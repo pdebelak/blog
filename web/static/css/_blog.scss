@@ -1,0 +1,35 @@
+$tablet-size: $tablet - 1px;
+$pad-size: 20px;
+
+.container {
+  max-width: $tablet-size;
+  @media screen and (min-width: $tablet-size) {
+    margin: 0 auto;
+  }
+}
+
+.section {
+  padding-right: 0;
+  padding-left: 0;
+  @media screen and (max-width: $tablet-size + $pad-size * 2) {
+    padding-right: $pad-size;
+    padding-left: $pad-size;
+  }
+
+  .modal-content & {
+    padding-right: $pad-size;
+    padding-left: $pad-size;
+  }
+}
+
+.hero-head {
+  @media screen and (min-width: $tablet-size) and (max-width: $tablet-size + $pad-size * 4) {
+    padding-right: $pad-size;
+  }
+  @media screen and (max-width: $tablet-size + $pad-size * 4) {
+    padding-left: $pad-size;
+    .nav-right {
+      margin-left: -$pad-size;
+    }
+  }
+}

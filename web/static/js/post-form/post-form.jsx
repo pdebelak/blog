@@ -44,73 +44,68 @@ export default class extends React.Component {
 
   render() {
     return (
-      <div className="columns">
-        <div className="column">
-          <form action={this.formAction} method="post">
-            {this.putField()}
-            <input name="_csrf_token" value={this.props.csrfToken} type="hidden" />
-            <Input
-              name="post[title]"
-              label="Title"
-              error={this.errorFor('title')}
-              inputProps={{
-                value: this.props.title,
-                onChange: e => this.props.changeField('title', e.target.value),
-              }}
-            />
-            <Input
-              name="post[slug]"
-              label="Slug"
-              error={this.errorFor('slug')}
-              inputProps={{
-                readOnly: true,
-                defaultValue: this.props.post.slug,
-                placeholder: 'Will be generated automatically',
-              }}
-            />
-            <Input
-              name="post[description]"
-              label="Description"
-              error={this.errorFor('description')}
-              inputProps={{
-                defaultValue: this.props.description,
-                onChange: e => this.props.changeField('description', e.target.value),
-              }}
-            />
-            <TextArea
-              name="post[body]"
-              label="Body"
-              error={this.errorFor('body')}
-              inputProps={{
-                value: this.props.body,
-                onChange: e => this.props.changeField('body', e.target.value),
-              }}
-            />
-            <Input
-              name="post[tags]"
-              label="Tags"
-              error={this.errorFor('tags')}
-              inputProps={{
-                value: this.props.tags,
-                onChange: e => this.props.changeField('tags', e.target.value),
-              }}
-            />
-            <CheckBox
-              name="post[publish]"
-              label="Publish"
-              error={this.errorFor('publish')}
-              inputProps={{
-                checked: this.props.publish,
-                onChange: e => this.props.changeField('publish', e.target.checked),
-              }}
-            />
-            <Submit name="Submit" />
-            &nbsp;
-            <a onClick={() => this.props.addImage()} className="button">Add an Image</a>
-          </form>
-        </div>
-        <div className="column" />
-      </div>
+      <form action={this.formAction} method="post">
+        {this.putField()}
+        <input name="_csrf_token" value={this.props.csrfToken} type="hidden" />
+        <Input
+          name="post[title]"
+          label="Title"
+          error={this.errorFor('title')}
+          inputProps={{
+            value: this.props.title,
+            onChange: e => this.props.changeField('title', e.target.value),
+          }}
+        />
+        <Input
+          name="post[slug]"
+          label="Slug"
+          error={this.errorFor('slug')}
+          inputProps={{
+            readOnly: true,
+            defaultValue: this.props.post.slug,
+            placeholder: 'Will be generated automatically',
+          }}
+        />
+        <Input
+          name="post[description]"
+          label="Description"
+          error={this.errorFor('description')}
+          inputProps={{
+            defaultValue: this.props.description,
+            onChange: e => this.props.changeField('description', e.target.value),
+          }}
+        />
+        <TextArea
+          name="post[body]"
+          label="Body"
+          error={this.errorFor('body')}
+          inputProps={{
+            value: this.props.body,
+            onChange: e => this.props.changeField('body', e.target.value),
+          }}
+        />
+        <Input
+          name="post[tags]"
+          label="Tags"
+          error={this.errorFor('tags')}
+          inputProps={{
+            value: this.props.tags,
+            onChange: e => this.props.changeField('tags', e.target.value),
+          }}
+        />
+        <CheckBox
+          name="post[publish]"
+          label="Publish"
+          error={this.errorFor('publish')}
+          inputProps={{
+            checked: this.props.publish,
+            onChange: e => this.props.changeField('publish', e.target.checked),
+          }}
+        />
+        <Submit name="Submit" />
+        &nbsp;
+        <a onClick={() => this.props.addImage()} className="button">Add an Image</a>
+      </form>
     );
   }
 }
