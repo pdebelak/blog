@@ -45,7 +45,7 @@ defmodule Blog.PageController do
     changeset = Page.changeset(page, page_params)
 
     case Repo.update(changeset) do
-      {:ok, page} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Page updated successfully.")
         |> redirect(to: page_path(conn, :index))

@@ -8,9 +8,13 @@ defmodule Blog.PostViewTest do
     assert body == "<h1>Hello</h1>\n"
   end
 
-  test "post body escapes regular html" do
+  test "post body allows regular html" do
     {:safe, body} = post_body(%{body: "<p>Hello</p>"})
-    assert body == "<p>&lt;p&gt;Hello&lt;/p&gt;</p>\n"
+    assert body == "<p>Hello</p>"
+  end
+
+  test "post body with nil body returns empty string" do
+    assert "" == post_body(%{body: nil})
   end
 
   test "published when post not published" do
