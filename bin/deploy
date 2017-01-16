@@ -1,14 +1,13 @@
 #!/bin/bash
 
-SITE=$HOME/sites/blog
-mkdir -p $SITE
-cd $SITE
-nvm use 7
 yarn
 mix deps.get
 brunch build --production
-MIX_ENV=prod mix do compile, phoenix.digest, release --env=prod
+MIX_ENV=prod mix do compile, phoenix.digest, release --env=prod --upgrade
 MIX_ENV=prod mix ecto.migrate
-tar -xzf _build/prod/rel/blog/releases/$1/blog.tar.gz
-./bin/blog start
+mkdir -p releases
+mkdir -p releases/$1
+mv _build/prod/rel/blog/releases/$1/blog.tar.gz releases/$1/blog.tar.gz
+tar -xzf releases/$1/blog.tar.gz
+./bin/blog upgrade $1
 exit
