@@ -50,7 +50,8 @@ defmodule Blog.Mixfile do
      {:earmark, "~> 1.0"},
      {:scrivener_ecto, "~> 1.0"},
      {:faker, "~> 0.5", only: [:dev, :test]},
-     {:cloudex, "~> 0.1.10"}]
+     {:cloudex, "~> 0.1.10"},
+     {:distillery, "~> 1.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

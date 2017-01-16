@@ -1,0 +1,14 @@
+#!/bin/bash
+
+SITE=$HOME/sites/blog
+mkdir -p $SITE
+cd $SITE
+nvm use 7
+yarn
+mix deps.get
+brunch build --production
+MIX_ENV=prod mix do compile, phoenix.digest, release --env=prod
+MIX_ENV=prod mix ecto.migrate
+tar -xzf _build/prod/rel/blog/releases/$1/blog.tar.gz
+./bin/blog start
+exit
